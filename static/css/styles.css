@@ -1,0 +1,94 @@
+
+.main-container {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  position: relative;
+}
+
+/* spinner specific */
+
+.spinner-container {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+}
+
+.spinner-bg {
+  /* checkered background */
+  background:
+    linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.125) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(0, 0, 0, 0.125) 75%,
+      rgba(0, 0, 0, 0.125) 0),
+    linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.125) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(0, 0, 0, 0.125) 75%,
+      rgba(0, 0, 0, 0.125) 0),
+    white;
+  background-repeat: repeat, repeat;
+  background-position: 0px 0px, 5px 5px;
+  transform-origin: 0 0 0;
+  background-attachment: local;
+  background-size: 10px 10px, 10px 10px;
+  box-shadow: none;
+  text-shadow: none;
+  transition: none;
+  transform: scaleX(1) scaleY(1) scaleZ(1);
+}
+
+.drop-shadow {
+  filter: drop-shadow(10px 10px 15px #222);
+}
+
+.spinner-fade-in {
+  animation: fadeIn 0.5s;
+}
+
+.shadow-fade-in {
+  animation: fadeIn 2s;
+}
+
+/* clock specific */
+
+.clock-container {
+  background-color: black;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+}
+
+.clock-bg {
+  background-color: black;
+}
+
+.clock-fade-in {
+  animation: fadeIn 0.5s;
+}
+
+/* Global */
+
+@keyframes fadeIn {
+  from { opacity: 0.0; }
+  to { opacity: 1.0; }
+}
+
+/* Moon specific */
+
+.moon-container {
+    overflow: hidden;
+    padding: 0px;
+    margin: 0px;
+    background-color: #000;
+}
+
