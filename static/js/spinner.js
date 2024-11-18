@@ -38,15 +38,15 @@
     });
 
     // disable touch?
-    // window.addEventListener("touchstart", disableTouch, { passive: false });
-    // window.addEventListener("touchend", disableTouch, { passive: false });
-    // window.addEventListener("touchcancel", disableTouch, { passive: false });
-    // window.addEventListener("touchmove", disableTouch, { passive: false });
+    window.addEventListener("touchstart", disableTouch, { passive: false });
+    window.addEventListener("touchend", disableTouch, { passive: false });
+    window.addEventListener("touchcancel", disableTouch, { passive: false });
+    window.addEventListener("touchmove", disableTouch, { passive: false });
 
-    // function disableTouch(e){
-    //   e.preventDefault();
-    //   e.stopPropagation();
-    // };
+    function disableTouch(e){
+      e.preventDefault();
+      e.stopPropagation();
+    };
 
     // Pointer Events
 
