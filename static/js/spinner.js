@@ -49,7 +49,7 @@
     // };
 
     // Pointer Events
-    /*
+
     window.addEventListener('pointerdown', (e) => {
       e.preventDefault();
       userInteraction = true;
@@ -77,7 +77,6 @@
         processInteractionEvent(e);
       }
     });
-    */
 
     screen.orientation.addEventListener('change', resizeSpinner);
     window.addEventListener('resize', resizeSpinner);
