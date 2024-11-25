@@ -1,0 +1,12 @@
+[Unit]
+Description=Chromium Kiosk for Widgets
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/chromium-browser --kiosk --start-maximized --incognito 'http://localhost'
+TimeoutStopSec=5
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target
