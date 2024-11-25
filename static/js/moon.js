@@ -1,11 +1,6 @@
 (function () {
     'use strict';
 
-    // if (!Detector.webgl) {
-    //     Detector.addGetWebGLMessage();
-    //     return;
-    // }
-
     var container = document.getElementById('container');
 
     var normVertShader = document.getElementById('norm-vert-shader');
@@ -145,6 +140,11 @@
     /** When the window loads, we immediately begin loading assets. While the
         assets loading Three.JS is initialized. When all assets finish loading
         they can be used to create objects in the scene and animation begins */
+
+    /** to address the error: [2791:2791:1125/135241.544617:ERROR:gles2_cmd_decoder.cc(9553)] [.WebGL-0x1400e63f00]RENDER WARNING: texture bound to texture unit 1 is not renderable. It might be non-power-of-2 or have incompatible texture filtering (maybe)?
+        https://webglfundamentals.org/webgl/lessons/webgl-3d-textures.html
+    */
+
     function onWindowLoaded() {
         loadAssets({
             paths: {

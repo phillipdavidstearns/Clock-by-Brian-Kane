@@ -3,7 +3,7 @@ Description=Widgets by Brian Kane
 
 [Service]
 Type=simple
-ExecStart=/home/phillipstearns/kane-widgets/venv/bin/python3 /home/phillipstearns/kane-widgets/main.py
+ExecStart=<full_path_to_repository>/kane-widgets/venv/bin/python3 <full_path_to_repository>/kane-widgets/main.py
 TimeoutStopSec=5
 KillMode=mixed
 
