@@ -3,6 +3,7 @@ Description=Chromium Kiosk for Widgets
 
 [Service]
 Type=simple
+User=<user>
 Environment=DISPLAY=:0
 ExecStart=/usr/bin/chromium-browser --kiosk --start-maximized --incognito 'http://localhost'
 TimeoutStopSec=5
