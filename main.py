@@ -28,6 +28,10 @@ def launch_app():
         self.write({'details': repr(e)})
         return
 
+  class TouchyHandler(RequestHandler):
+    async def get(self):
+      self.render('touchy.html')
+
   def make_app():
     path = os.path.dirname(os.path.abspath(__file__))
     
@@ -39,7 +43,8 @@ def launch_app():
     )
 
     urls = [
-      (r'/', MainHandler)
+      (r'/', MainHandler),
+      (r'/touchy', TouchyHandler)
     ]
 
     return Application(urls, **settings)

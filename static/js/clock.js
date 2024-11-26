@@ -23,7 +23,6 @@
     let offsetY = isNaN(parseFloat(params.offsetY)) ? 0 : Math.min(500, Math.max(-500, parseFloat(params.offsetY)));
     let offsetX = isNaN(parseFloat(params.offsetX)) ? 0 : Math.min(500, Math.max(-500, parseFloat(params.offsetX)));
     let timer = -1;
-    let lastMoveEvent= -1;
 
     let hourOffset = 0.0;
     let minuteOffset = 0.0;
@@ -81,43 +80,6 @@
     resizeClock();
     startClock();
 
-    // disable touch?
-    // window.addEventListener("touchstart", disableTouch, { passive: false });
-    // window.addEventListener("touchend", disableTouch, { passive: false });
-    // window.addEventListener("touchcancel", disableTouch, { passive: false });
-    // window.addEventListener("touchmove", disableTouch, { passive: false });
-
-    // function disableTouch(e){
-    //   e.preventDefault();
-    //   e.stopPropagation();
-    // };
-
-    // Pointer Events
-    // window.addEventListener('pointerdown', (e) => {
-    //   e.preventDefault();
-    //   userInteraction = true;
-    //   stopClock();
-    // });
-
-    // window.addEventListener('pointerup', (e) => {
-    //   e.preventDefault();
-    //   userInteraction = false;
-    //   startClock();
-    // });
-
-    // window.addEventListener('pointercancel', (e) => {
-    //   e.preventDefault();
-    //   userInteraction = false;
-    //   startClock();
-    // });
-
-    // window.addEventListener('pointermove', (e) => {
-    //   e.preventDefault();
-    //   if (userInteraction) {
-    //     processInteractionEvent(e);
-    //   }
-    // });
-
     screen.orientation.addEventListener('change', resizeClock);
     window.addEventListener('resize', resizeClock);
 
@@ -173,16 +135,6 @@
 
     }
 
-    // function processInteractionEvent(e){
-    //   let centerX = offsetX + window.innerWidth * 0.5;
-    //   let centerY = offsetY + window.innerHeight * 0.5;
-
-    //   let lastX = e.clientX + e.movementX;
-    //   let lastY = e.clientY + e.movementY;
-
-    //   let deltaAngle = getAngle(centerX, centerY, lastX, lastY, e.clientX, e.clientY);
-    // }
-
     function runClock() {
       colorBlades(hours,'hours');
       colorBlades(minutes,'minutes');
@@ -192,7 +144,7 @@
 
     function startClock() {
       if (timer === -1) {
-        timer = setInterval(runClock, 1000 * 1 / frameRate);
+        timer = setInterval(runClock, 1000 / frameRate);
       }
     }
 
@@ -201,30 +153,6 @@
         clearInterval(timer);
         timer = -1;
       }
-    }
-
-    function getAngle(centerX, centerY, oldX, oldY, newX, newY){
-      // treat as vectors the old and new mouse positions
-      // relative to the center and calculate the angle between them
-
-      //vector from center to new mouse location
-      let x1 = newX - centerX;
-      let y1 = newY - centerY;
-
-      //vector from center to old mouse location
-      let x2 = oldX - centerX;
-      let y2 = oldY - centerY;
-
-      // calculate the magnitudes of both
-      let m1 = Math.sqrt(x1 * x1 + y1 * y1);
-      let m2 = Math.sqrt(x2 * x2 + y2 * y2);
-
-      // calculate the angle in radians
-      let theta = Math.asin((x1 / m1) * (y2 / m2) - (y1 / m1) * (x2 / m2));
-   
-      // if there's a NaN resulting from divide by zero, return 0,
-      // else return the angle converted to degrees
-      return isNaN(theta) ? 0 : theta * 180 / Math.PI;
     }
 
   }, false);
