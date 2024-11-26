@@ -33,21 +33,22 @@
       startSpin();
     });
 
-    // disable touch?
-    window.addEventListener("touchstart", disableTouch, { passive: false });
-    window.addEventListener("touchend", disableTouch, { passive: false });
-    window.addEventListener("touchcancel", disableTouch, { passive: false });
-    window.addEventListener("touchmove", disableTouch, { passive: false });
+    // disable touch for the whole app?
+    // window.addEventListener("touchstart", disableTouch, { passive: false });
+    // window.addEventListener("touchend", disableTouch, { passive: false });
+    // window.addEventListener("touchcancel", disableTouch, { passive: false });
+    // window.addEventListener("touchmove", disableTouch, { passive: false });
 
-    function disableTouch(e){
-      e.preventDefault();
-      e.stopPropagation();
-    };
+    // function disableTouch(e){
+    //   e.preventDefault();
+    //   e.stopPropagation();
+    // };
 
     // Pointer Events on spinnerDiv ONLY
 
     spinnerDiv.addEventListener('pointerdown', (e) => {
       e.preventDefault();
+      e.stopPropagation();
       userInteraction = true;
       lastMoveEvent = parseInt(new Date().getTime());
       stopSpin();
@@ -55,6 +56,7 @@
 
     spinnerDiv.addEventListener('pointerup', (e) => {
       e.preventDefault();
+      e.stopPropagation();
       userInteraction = false;
       lastMoveEvent = -1;
       startSpin();
@@ -62,6 +64,7 @@
 
     spinnerDiv.addEventListener('pointercancel', (e) => {
       e.preventDefault();
+      e.stopPropagation();
       userInteraction = false;
       lastMoveEvent = -1;
       startSpin();
@@ -69,6 +72,7 @@
 
     spinnerDiv.addEventListener('pointermove', (e) => {
       e.preventDefault();
+      e.stopPropagation();
       if (userInteraction) {
         processInteractionEvent(e);
       }

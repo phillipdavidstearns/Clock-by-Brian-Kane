@@ -131,10 +131,8 @@
   function handleMove(evt) {
     evt.preventDefault();
     const touches = evt.changedTouches;
-
     for (let i = 0; i < touches.length; i++) {
-      const color = colorForTouch(touches[i]);
-      const idx = ongoingTouchIndexById(touches[i].identifier);
+      var idx = ongoingTouchIndexById(touches[i].identifier);
       if (idx >= 0) {
         display_message(`continuing touch ${idx}`);
         ongoingTouches.splice(idx, 1, copyTouch(touches[i])); // swap in the new touch record
@@ -146,7 +144,7 @@
     evt.preventDefault();
     const touches = evt.changedTouches;
     for (let i = 0; i < touches.length; i++) {
-      let idx = ongoingTouchIndexById(touches[i].identifier);
+      var idx = ongoingTouchIndexById(touches[i].identifier);
       display_message(`touchend ${idx}`);
       if (idx >= 0) {
         ongoingTouches.splice(idx, 1); // remove it; we're done
@@ -158,7 +156,6 @@
     evt.preventDefault();
     display_message("touchcancel");
     const touches = evt.changedTouches;
-
     for (let i = 0; i < touches.length; i++) {
       let idx = ongoingTouchIndexById(touches[i].identifier);
       ongoingTouches.splice(idx, 1); // remove it; we're done
