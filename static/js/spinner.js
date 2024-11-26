@@ -24,8 +24,6 @@
     // global elements
     const spinnerDiv = document.getElementById("spinner-div");
     const spinner = document.getElementById("spinner");
-    // const shadowDiv = document.getElementById("shadow-div")
-    // const shadow = document.getElementById("shadow");
 
     // initialize the parent div of the spinner graphic
     resizeSpinner();
@@ -33,8 +31,6 @@
     spinnerDiv.classList.add('spinner-fade-in');
     spinnerDiv.addEventListener('animationend', (e) => {
       startSpin();
-      // shadowDiv.removeAttribute('hidden');
-      // shadowDiv.classList.add('shadow-fade-in');
     });
 
     // disable touch?
@@ -48,30 +44,30 @@
       e.stopPropagation();
     };
 
-    // Pointer Events
+    // Pointer Events on spinnerDiv ONLY
 
-    window.addEventListener('pointerdown', (e) => {
+    spinnerDiv.addEventListener('pointerdown', (e) => {
       e.preventDefault();
       userInteraction = true;
       lastMoveEvent = parseInt(new Date().getTime());
       stopSpin();
     });
 
-    window.addEventListener('pointerup', (e) => {
+    spinnerDiv.addEventListener('pointerup', (e) => {
       e.preventDefault();
       userInteraction = false;
       lastMoveEvent = -1;
       startSpin();
     });
 
-    window.addEventListener('pointercancel', (e) => {
+    spinnerDiv.addEventListener('pointercancel', (e) => {
       e.preventDefault();
       userInteraction = false;
       lastMoveEvent = -1;
       startSpin();
     });
 
-    window.addEventListener('pointermove', (e) => {
+    spinnerDiv.addEventListener('pointermove', (e) => {
       e.preventDefault();
       if (userInteraction) {
         processInteractionEvent(e);
@@ -97,16 +93,10 @@
       spinnerDiv.style.setProperty('width',width,'important');
       spinner.style.setProperty('height',height,'important');
       spinner.style.setProperty('width',width,'important');
-      // shadowDiv.style.setProperty('height',height,'important');
-      // shadowDiv.style.setProperty('width',width,'important');
-      // shadow.style.setProperty('height',height,'important');
-      // shadow.style.setProperty('width',width,'important');
 
       // set position
       spinnerDiv.style.setProperty('top',`${offsetY + window.innerHeight / 2}px`,'important');
       spinnerDiv.style.setProperty('left',`${offsetX + window.innerWidth / 2}px`,'important');
-      // shadowDiv.style.setProperty('top',`${offsetY + window.innerHeight / 2}px`,'important');
-      // shadowDiv.style.setProperty('left',`${offsetX + window.innerWidth / 2}px`,'important');
     }
 
     function updateAngle(deltaAngle){
