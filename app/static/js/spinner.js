@@ -67,7 +67,7 @@
     // Pointer Events on spinnerDiv ONLY
 
     spinnerDiv.addEventListener('pointerdown', onPointerDown);
-    spinnerDiv.addEventListener('pointerup',onPointerUp);
+    spinnerDiv.addEventListener('pointerup', onPointerUp);
     spinnerDiv.addEventListener('pointercancel', onPointerCancel);
     spinnerDiv.addEventListener('pointermove', onPointerMove);
 
@@ -86,14 +86,14 @@
       }
 
       // set width and height
-      spinnerDiv.style.setProperty('height',height,'important');
-      spinnerDiv.style.setProperty('width',width,'important');
-      spinner.style.setProperty('height',height,'important');
-      spinner.style.setProperty('width',width,'important');
+      spinnerDiv.style.setProperty('height', height, 'important');
+      spinnerDiv.style.setProperty('width', width, 'important');
+      spinner.style.setProperty('height', height, 'important');
+      spinner.style.setProperty('width', width, 'important');
 
       // set position
-      spinnerDiv.style.setProperty('top',`${offsetY + window.innerHeight / 2}px`,'important');
-      spinnerDiv.style.setProperty('left',`${offsetX + window.innerWidth / 2}px`,'important');
+      spinnerDiv.style.setProperty('top', `${offsetY + window.innerHeight / 2}px`, 'important');
+      spinnerDiv.style.setProperty('left', `${offsetX + window.innerWidth / 2}px`, 'important');
     }
 
     function updateAngle(deltaAngle){
@@ -105,8 +105,6 @@
     }
 
     function processInteractionEvent(e){
-      console.log('processInteractionEvent:', e);
-
       let now = parseInt(new Date().getTime());
 
       var centerX = offsetX + parseFloat(spinnerDiv.style.left);
