@@ -22,6 +22,7 @@
     let lastMoveEvent = -1;
 
     // global elements
+    const target = document.getElementById("target");
     const spinnerDiv = document.getElementById("spinner-container");
     const spinner = document.getElementById("spinner");
 
@@ -29,50 +30,46 @@
     resizeSpinner();
     startSpin();
 
-    // disable touch for the whole app?
-    window.addEventListener("touchstart", disableTouch, { passive: false });
-    window.addEventListener("touchend", disableTouch, { passive: false });
-    window.addEventListener("touchcancel", disableTouch, { passive: false });
-    window.addEventListener("touchmove", disableTouch, { passive: false });
-
-    function disableTouch(e){
-      e.preventDefault();
-      e.stopPropagation();
-    };
-
     // Pointer Events on spinnerDiv ONLY
 
-    spinnerDiv.addEventListener('pointerdown', (e) => {
+    function onPointerDown(e) {
       e.preventDefault();
       e.stopPropagation();
       userInteraction = true;
       lastMoveEvent = parseInt(new Date().getTime());
       stopSpin();
-    });
+    }
 
-    spinnerDiv.addEventListener('pointerup', (e) => {
+    function onPointerUp(e) {
       e.preventDefault();
       e.stopPropagation();
       userInteraction = false;
       lastMoveEvent = -1;
       startSpin();
-    });
+    }
 
-    spinnerDiv.addEventListener('pointercancel', (e) => {
+    function onPointerCancel(e) {
       e.preventDefault();
       e.stopPropagation();
       userInteraction = false;
       lastMoveEvent = -1;
       startSpin();
-    });
+    }
 
-    spinnerDiv.addEventListener('pointermove', (e) => {
+    function onPointerMove(e) {
       e.preventDefault();
       e.stopPropagation();
       if (userInteraction) {
         processInteractionEvent(e);
       }
-    });
+    }
+
+    // Pointer Events on spinnerDiv ONLY
+
+    spinnerDiv.addEventListener('pointerdown', onPointerDown);
+    spinnerDiv.addEventListener('pointerup',onPointerUp);
+    spinnerDiv.addEventListener('pointercancel', onPointerCancel);
+    spinnerDiv.addEventListener('pointermove', onPointerMove);
 
     screen.orientation.addEventListener('change', resizeSpinner);
     window.addEventListener('resize', resizeSpinner);
@@ -108,6 +105,8 @@
     }
 
     function processInteractionEvent(e){
+      console.log('processInteractionEvent:', e);
+
       let now = parseInt(new Date().getTime());
 
       var centerX = offsetX + parseFloat(spinnerDiv.style.left);

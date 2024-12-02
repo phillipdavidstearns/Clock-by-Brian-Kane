@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="./static/css/styles.css">
   </head>
 
-  <body class="clock-bg m-auto">
+  <body id="target" class="clock-bg m-auto" draggable="false">
     
-    <div id="carouselExample" class="carousel slide clock-fade-in" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="9000000000">
-      <div class="carousel-inner">
+    <div id="carouselExample" class="carousel slide clock-fade-in" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="9000000000" draggable="false">
+      <div class="carousel-inner" draggable="false">
 
         <!-- SPINNER -->
         <div class="carousel-item active">
@@ -41,11 +41,11 @@
       </div>
       
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-        <span class="">Previous</span>
+        <span class="visually-hidden">Previous</span>
       </button>
       
       <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-        <span class="">Next</span>
+        <span class="visually-hidden">Next</span>
       </button>
     </div>
 
