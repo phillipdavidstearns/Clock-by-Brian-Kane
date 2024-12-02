@@ -1,0 +1,35 @@
+/* clock */
+
+.clock-container {
+  background-color: black;
+  padding: 0;
+  margin: 0;
+  width: 100vh;
+  overflow: hidden;
+  user-select: none;
+}
+
+.clock-bg {
+  background-color: black;
+}
+
+.clock-fade-in {
+  animation: fadeIn 0.5s;
+}
+
+/* Global */
+
+@keyframes fadeIn {
+  from { opacity: 0.0; }
+  to { opacity: 1.0; }
+}
+
+/* Moon specific */
+
+.moon-container {
+    /*overflow: hidden;
+    padding: 0px;
+    margin: 0px;
+    background-color: #000;*/
+}
+

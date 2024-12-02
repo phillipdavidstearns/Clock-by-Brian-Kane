@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WIDGETS</title>
+    <link href="./static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/styles.css">
+  </head>
+
+  <body class="clock-bg m-auto">
+    
+    <div id="carouselExample" class="carousel slide clock-fade-in top-50 start-50 translate-middle" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="9000000000">
+      <div class="carousel-inner">
+
+        <!-- SPINNER -->
+        <div class="carousel-item active">
+          <div class="min-vh-100 m-0 p-0 d-flex position-relative">
+            <div id="spinner-container" class="" style="z-index: 0;" hidden draggable="false">
+              <img id="spinner" src="./static/media/WaitingDiscOnlyLarge2.png" draggable="false">
+            </div>
+          </div>
+        </div>
+
+        <!-- CLOCK -->
+        <div class="carousel-item">
+          <div class="min-vh-100 m-0 p-0 d-flex position-relative" draggable="false">
+            <div id="clock" class="" draggable="false">
+            </div>
+          </div>
+        </div>
+
+        <!-- MOON -->
+        <div class="carousel-item">
+          <div class="">
+            <div id="moon" class="">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="visually-hidden">Previous</span>
+      </button>
+      
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- GLSL vertex shader for the moon -->
+    <script id="norm-vert-shader" type="x-shader/x-vertex">
+      attribute vec4 tangent;
+      
+      uniform vec2 uvScale;
+      uniform vec3 lightPosition;
+
+      varying vec2 vUv;
+      varying mat3 tbn;
+      varying vec3 vLightVector;
+
+      void main() {
+          vUv = uvScale * uv;
+
+          /** Create tangent-binormal-normal matrix used to transform
+              coordinates from object space to tangent space */
+          vec3 vNormal = normalize(normalMatrix * normal);
+          vec3 vTangent = normalize( normalMatrix * tangent.xyz );
+          vec3 vBinormal = normalize(cross( vNormal, vTangent ) * tangent.w);
+          tbn = mat3(vTangent, vBinormal, vNormal);
+
+          /** Calculate the vertex-to-light vector */
+          vec4 lightVector = viewMatrix * vec4(lightPosition, 1.0);
+          vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
+          vLightVector = normalize(lightVector.xyz - modelViewPosition.xyz);
+
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    </script>
+
+    <!-- GLSL fragment shader for the moon -->
+    <script id="norm-frag-shader" type="x-shader/x-fragment">
+      uniform sampler2D textureMap;
+      uniform sampler2D normalMap;
+      
+      varying vec2 vUv;
+      varying mat3 tbn;
+      varying vec3 vLightVector;
+      
+      void main() {
+          /** Transform texture coordinate of normal map to a range (-1, 1) */
+          vec3 normalCoordinate = texture2D(normalMap, vUv).xyz * 2.0 - 1.0;
+
+
+          /** Transform the normal vector in the RGB channels to tangent space */
+          vec3 normal = normalize(tbn * normalCoordinate.rgb);
+
+          /** Lighting intensity is calculated as dot of normal vector and 
+              the vertex-to-light vector */
+          float intensity = max(0.015, 1.35 * dot(normal, vLightVector));
+          vec4 lighting = vec4(intensity, intensity, intensity, 1.0);
+
+          /** Final color is calculated with the lighting applied */
+          gl_FragColor = texture2D(textureMap, vUv) * lighting;
+      }
+    </script>
+
+    <script src="./static/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./static/js/three.min.js"></script>
+
+    <script src="./static/js/common.js"></script>
+    <script src="./static/js/spinner.js"></script>
+    <script src="./static/js/clock.js"></script>
+    <script src="./static/js/moon.js"></script>
+
+  </body>
+
+</html>

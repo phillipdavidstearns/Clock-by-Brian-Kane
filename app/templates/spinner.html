@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" draggable="false" inert>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spinner</title>
+    <link href="./static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/styles.css">
+  </head>
+
+  <body draggable="false" inert>
+
+    <main class="min-vh-100 m-0 p-0 d-flex position-relative" draggable="false">
+
+      <div id="spinner-div" class="position-absolute top-50 start-50 translate-middle" style="z-index: 0;" hidden draggable="false">
+        <img id="spinner" src="./static/media/WaitingDiscOnlyLarge2.png" draggable="false">
+      </div>
+
+      <div id="shadow-div" class="position-absolute top-50 start-50 translate-middle drop-shadow" style="z-index: -1;" hidden draggable="false">
+        <img id="shadow" src="./static/media/WaitingDiscOnlyLarge2.png" draggable="false">
+      </div>
+
+    </main>
+
+    <script src="./static/js/bootstrap.bundle.min.js"></script>
+    <script src="./static/js/app.js"></script>
+
+  </body>
+</html>
