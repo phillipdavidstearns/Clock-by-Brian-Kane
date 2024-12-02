@@ -2,6 +2,7 @@
     'use strict';
 
     var container = document.getElementById('moon');
+    var frame = document.getElementById('frame');
 
     var normVertShader = document.getElementById('norm-vert-shader');
     var normFragShader = document.getElementById('norm-frag-shader');
@@ -69,7 +70,7 @@
         });
 
         //configuring for 1:1 square aspect ratio
-        renderer.setSize(window.innerHeight, window.innerHeight);
+        renderer.setSize(frame.getBoundingClientRect().width, frame.getBoundingClientRect().height);
         container.appendChild(renderer.domElement);
 
         var fov = 14.75;
@@ -92,7 +93,7 @@
 
     function onWindowResize() {
         //configuring for 1:1 square aspect ratio
-        renderer.setSize(window.innerHeight, window.innerHeight);
+        renderer.setSize(frame.getBoundingClientRect().width, frame.getBoundingClientRect().height);
         camera.aspect = 1;
         camera.updateProjectionMatrix();
     }

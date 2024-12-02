@@ -9,16 +9,16 @@
     <link rel="stylesheet" href="./static/css/styles.css">
   </head>
 
-  <body id="target" class="clock-bg m-auto">
+  <body id="frame" class="clock-bg m-auto">
     
-    <div id="carouselExample" class="carousel slide clock-fade-in" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="9000000000">
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="9000000000">
       <div class="carousel-inner">
 
         <!-- SPINNER -->
         <div class="carousel-item active">
           <div class="min-vh-100 m-0 p-0 d-flex position-relative">
-            <div id="spinner-container">
-              <img id="spinner" src="./static/media/WaitingDiscOnlyLarge2.png">
+            <div id="spinner-container" class="position-absolute top-50 start-50 translate-middle">
+              <img id="spinner" class="fade-in" src="./static/media/WaitingDiscOnlyLarge2.png">
             </div>
           </div>
         </div>
@@ -26,7 +26,7 @@
         <!-- CLOCK -->
         <div class="carousel-item">
           <div class="min-vh-100 m-0 p-0 d-flex position-relative">
-            <div id="clock">
+            <div id="clock" class="position-absolute top-50 start-50 translate-middle">
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@
         <!-- MOON -->
         <div class="carousel-item">
           <div class="min-vh-100 m-0 p-0 d-flex position-relative">
-            <div id="moon">
+            <div id="moon" class="position-absolute top-50 start-50 translate-middle">
             </div>
           </div>
         </div>

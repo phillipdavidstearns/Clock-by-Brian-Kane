@@ -22,13 +22,9 @@
     let lastMoveEvent = -1;
 
     // global elements
-    const target = document.getElementById("target");
     const spinnerDiv = document.getElementById("spinner-container");
     const spinner = document.getElementById("spinner");
-
-    // initialize the parent div of the spinner graphic
-    resizeSpinner();
-    startSpin();
+    const frame = document.getElementById('frame');
 
     // Pointer Events on spinnerDiv ONLY
 
@@ -80,9 +76,9 @@
       let height = '';
 
       if (window.innerHeight < window.innerWidth){
-        height = `${spinnerScale}vh`;
+        height = `${frame.getBoundingClientRect().width}px`;
       } else {
-        width = `${spinnerScale}vw`;
+        width = `${frame.getBoundingClientRect().height}px`;
       }
 
       // set width and height
@@ -91,10 +87,7 @@
       spinner.style.setProperty('height', height, 'important');
       spinner.style.setProperty('width', width, 'important');
 
-      // set position
-      spinnerDiv.style.setProperty('top', `${offsetY + window.innerHeight / 2}px`, 'important');
-      spinnerDiv.style.setProperty('left', `${offsetX + window.innerWidth / 2}px`, 'important');
-    }
+     }
 
     function updateAngle(deltaAngle){
       angle += deltaAngle + 360;
@@ -107,8 +100,8 @@
     function processInteractionEvent(e){
       let now = parseInt(new Date().getTime());
 
-      var centerX = offsetX + parseFloat(spinnerDiv.style.left);
-      var centerY = offsetY + parseFloat(spinnerDiv.style.top);
+      var centerX = offsetX + parseFloat(frame.getBoundingClientRect().width * 0.5);
+      var centerY = offsetY + parseFloat(frame.getBoundingClientRect().height * 0.5);
 
       let lastX = e.clientX + e.movementX;
       let lastY = e.clientY + e.movementY;
@@ -139,6 +132,10 @@
         timer = -1;
       }
     }
+
+  // initialize the parent div of the spinner graphic
+  resizeSpinner();
+  startSpin();
 
   }, false);
 })();
