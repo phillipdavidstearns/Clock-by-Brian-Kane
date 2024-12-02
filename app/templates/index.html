@@ -11,13 +11,13 @@
 
   <body class="clock-bg m-auto">
     
-    <div id="carouselExample" class="carousel slide clock-fade-in top-50 start-50 translate-middle" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="9000000000">
+    <div id="carouselExample" class="carousel slide clock-fade-in" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="9000000000">
       <div class="carousel-inner">
 
         <!-- SPINNER -->
         <div class="carousel-item active">
           <div class="min-vh-100 m-0 p-0 d-flex position-relative">
-            <div id="spinner-container" class="" style="z-index: 0;" hidden draggable="false">
+            <div id="spinner-container" draggable="false">
               <img id="spinner" src="./static/media/WaitingDiscOnlyLarge2.png" draggable="false">
             </div>
           </div>
@@ -26,15 +26,15 @@
         <!-- CLOCK -->
         <div class="carousel-item">
           <div class="min-vh-100 m-0 p-0 d-flex position-relative" draggable="false">
-            <div id="clock" class="" draggable="false">
+            <div id="clock" draggable="false">
             </div>
           </div>
         </div>
 
         <!-- MOON -->
         <div class="carousel-item">
-          <div class="">
-            <div id="moon" class="">
+          <div class="min-vh-100 m-0 p-0 d-flex position-relative">
+            <div id="moon" draggable="false">
             </div>
           </div>
         </div>

@@ -27,11 +27,7 @@
 
     // initialize the parent div of the spinner graphic
     resizeSpinner();
-    spinnerDiv.removeAttribute('hidden');
-    spinnerDiv.classList.add('spinner-fade-in');
-    spinnerDiv.addEventListener('animationend', (e) => {
-      startSpin();
-    });
+    startSpin();
 
     // disable touch for the whole app?
     window.addEventListener("touchstart", disableTouch, { passive: false });
@@ -113,8 +109,9 @@
 
     function processInteractionEvent(e){
       let now = parseInt(new Date().getTime());
-      let centerX = offsetX + window.innerWidth * 0.5;
-      let centerY = offsetY + window.innerHeight * 0.5;
+
+      var centerX = offsetX + parseFloat(spinnerDiv.style.left);
+      var centerY = offsetY + parseFloat(spinnerDiv.style.top);
 
       let lastX = e.clientX + e.movementX;
       let lastY = e.clientY + e.movementY;
