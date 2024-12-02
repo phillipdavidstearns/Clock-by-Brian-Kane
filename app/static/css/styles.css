@@ -4,6 +4,7 @@
   background-color: black;
   width: 100vh;
   height: 100vh;
+  touch-action: none;
 }
 
 .clock-fade-in {
@@ -16,13 +17,3 @@
   from { opacity: 0.0; }
   to { opacity: 1.0; }
 }
-
-/* Moon specific */
-
-.moon-container {
-/*    overflow: hidden;*/
-/*    padding: 0px;*/
-/*    margin: 0px;*/
-/*    background-color: #000;*/
-}
-
