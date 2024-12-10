@@ -29,32 +29,32 @@
     // Pointer Events on spinnerDiv ONLY
 
     function onPointerDown(e) {
-      e.preventDefault();
-      e.stopPropagation();
+      // e.preventDefault();
+      // e.stopPropagation();
       userInteraction = true;
       lastMoveEvent = parseInt(new Date().getTime());
       stopSpin();
     }
 
     function onPointerUp(e) {
-      e.preventDefault();
-      e.stopPropagation();
+      // e.preventDefault();
+      // e.stopPropagation();
       userInteraction = false;
       lastMoveEvent = -1;
       startSpin();
     }
 
     function onPointerCancel(e) {
-      e.preventDefault();
-      e.stopPropagation();
+      // e.preventDefault();
+      // e.stopPropagation();
       userInteraction = false;
       lastMoveEvent = -1;
       startSpin();
     }
 
     function onPointerMove(e) {
-      e.preventDefault();
-      e.stopPropagation();
+      // e.preventDefault();
+      // e.stopPropagation();
       if (userInteraction) {
         processInteractionEvent(e);
       }
