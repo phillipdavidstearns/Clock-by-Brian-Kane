@@ -20,7 +20,9 @@ def launch_app():
 
   class MainHandler(RequestHandler):
     async def get(self):
-      self.render('index.html')
+      self.render(
+        config('INDEX', cast=str, default='index-bootstrap.html')
+      )
     async def post(self):
       try:
         timestamp = float(self.get_query_argument('timestamp'))
@@ -37,9 +39,6 @@ def launch_app():
     async def get(self):
       self.render('touchy.html')
 
-  class SwiperHandler(RequestHandler):
-    async def get(self):
-      self.render('swiper.html')
 
   def make_app():
     path = os.path.dirname(os.path.abspath(__file__))
@@ -53,8 +52,7 @@ def launch_app():
 
     urls = [
       (r'/', MainHandler),
-      (r'/touchy', TouchyHandler),
-      (r'/swiper', SwiperHandler)
+      (r'/touchy', TouchyHandler)
     ]
 
     return Application(urls, **settings)
