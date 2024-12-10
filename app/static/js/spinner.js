@@ -52,7 +52,6 @@
 
     // Pointer Events on spinnerDiv ONLY
 
-
     function endHold(){
       clearTimeout(touchStartTimeout);
       touchStartTimeout = -1;
@@ -83,7 +82,7 @@
         console.log('HOLDING!');
         positionActive(downX, downY);
         startSpin();
-      }, 1000);
+      }, 500);
 
       userSpin = true;
       lastMoveEvent = parseInt(new Date().getTime());
@@ -128,32 +127,34 @@
       e.preventDefault();
       e.stopPropagation();
 
-      // accumulate movement distance in pixels on x and y axis
-      movementX += e.movementX;
-      movementY += e.movementY;
+      
 
       // if we've not set the hold flag AND
       // there's an active touchStartTimeout AND
       // the accumulated movement exceeds the hold radius value (box)
-      if( ! holdFlag && ( 
+      if( !holdFlag ){
+
+        movementX += e.movementX;
+        movementY += e.movementY;
+
+        if ( 
           (movementX + downX) > (downX + holdRadius) ||
           (movementY + downY) > (downY + holdRadius) ||
           (movementX + downX) < (downX - holdRadius) ||
           (movementY + downY) < (downY - holdRadius)
-        )
-      ) {
+        ){
+          // accumulate movement distance in pixels on x and y axis
         console.log(`TOO MUCH MOVING! cancelling touchStartTimeout: ${touchStartTimeout}`);
         endHold();
 
-      } else if (holdFlag){
+        }
+      } else {
 
         positionActive(e.clientX, e.clientY);
 
       }
 
-      if (userSpin) {
-        processInteractionEvent(e);
-      }
+      if (userSpin) processInteractionEvent(e);
     }
 
     // Pointer Events on spinnerDiv ONLY
@@ -167,9 +168,26 @@
     screen.orientation.addEventListener('change', () => {resizeSpinner(spinnerScale)});
     window.addEventListener('resize', () => {resizeSpinner(spinnerScale)});
 
-    function resizeSpinner(scale){
+    function resizeActive(scale){
 
-      console.log(`scale: ${scale}`);
+      let active = document.querySelector(".active");
+
+      let width = '';
+      let height = '';
+
+      if (window.innerHeight < window.innerWidth){
+        height = `${parseFloat(active.getBoundingClientRect().width) * scale / 100.0}px`;
+        active.style.setProperty('height', height, 'important');
+        active.style.setProperty('width', '');
+      } else {
+        width = `${parseFloat(active.getBoundingClientRect().height) * scale / 100.0}px`;
+        active.style.setProperty('width', width, 'important');
+        active.style.setProperty('height', '');
+      }
+
+     }
+
+    function resizeSpinner(scale){
 
       let width = '';
       let height = '';
@@ -186,7 +204,7 @@
       spinner.style.setProperty('height', height, 'important');
       spinner.style.setProperty('width', width, 'important');
 
-     }
+    }
 
     function updateAngle(deltaAngle){
       angle += deltaAngle + 360;
