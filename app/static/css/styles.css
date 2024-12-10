@@ -5,11 +5,14 @@
 /*  touch-action: none;*/
 }
 
+.swiper-slide {
+  overflow: hidden;
+}
+
 /* clock specific */
 
 .clock-bg {
   padding: 0;
-  margin: 0;
   background-color: black;
   width: 100vh;
   height: 100vh;

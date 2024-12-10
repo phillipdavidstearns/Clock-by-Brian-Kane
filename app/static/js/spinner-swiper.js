@@ -37,56 +37,13 @@
       event.preventDefault();
     });
 
-    const myCarouselElement = document.querySelector('#carouselExample')
-
-    const carousel = new bootstrap.Carousel(myCarouselElement)
-
-    function positionActive(x, y){
-
-      let active = document.querySelector(".active");
-      active.style.left = `${x - window.innerWidth / 2}px`;
-      active.style.top = `${y - window.innerHeight / 2}px`;
-      console.log(`positioning... x: ${active.style.left}, y: ${active.style.top}`);
-
-    }
-
     // Pointer Events on spinnerDiv ONLY
-
-    function endHold(){
-      clearTimeout(touchStartTimeout);
-      touchStartTimeout = -1;
-      let active = document.querySelector(".active");
-      active.style.position = '';
-      active.style.left = ``;
-      active.style.top = ``;
-      // resizeSpinner(spinnerScale);
-    }
 
     function onPointerDown(e) {
       e.preventDefault();
       e.stopPropagation();
-
-      //store the initial pointer coordinates
-      downX = e.clientX;
-      downY = e.clientY;
-      movementX = 0;
-      movementY = 0;
-
-      //that a timeout that after one second:
-      //1. sets a hold flag
-      //2. stops user spin actions
-      //3. starts default spin action
-      touchStartTimeout = setTimeout(() => {
-        holdFlag = true;
-        userSpin = false;
-        console.log('HOLDING!');
-        positionActive(downX, downY);
-        startSpin();
-      }, 500);
-
       userSpin = true;
       lastMoveEvent = parseInt(new Date().getTime());
-
       stopSpin();
     }
 
@@ -94,32 +51,16 @@
       e.preventDefault();
       e.stopPropagation();
 
-      if(holdFlag){
-        console.log('HOLD CANCELLED');
-        if(downX - e.clientX > holdRadius){
-          console.log('left');
-          carousel.next();
-        } else if(downX - e.clientX < -holdRadius){
-          console.log('right');
-          carousel.prev();
-        }
-      }
-
-      holdFlag = false;
       userSpin = false;
       lastMoveEvent = -1;
-
-      endHold();
       startSpin();
     }
 
     function onPointerCancel(e) {
       e.preventDefault();
       e.stopPropagation();
-      let holdFlag = false;
       userSpin = false;
       lastMoveEvent = -1;
-      endHold();
       startSpin();
     }
 
@@ -127,66 +68,18 @@
       e.preventDefault();
       e.stopPropagation();
 
-      
-
-      // if we've not set the hold flag AND
-      // there's an active touchStartTimeout AND
-      // the accumulated movement exceeds the hold radius value (box)
-      if( !holdFlag ){
-
-        movementX += e.movementX;
-        movementY += e.movementY;
-
-        if ( touchStartTimeout != -1 && (
-            (movementX + downX) > (downX + holdRadius) ||
-            (movementY + downY) > (downY + holdRadius) ||
-            (movementX + downX) < (downX - holdRadius) ||
-            (movementY + downY) < (downY - holdRadius)
-          )
-        ){
-          // accumulate movement distance in pixels on x and y axis
-        console.log(`TOO MUCH MOVING! cancelling touchStartTimeout: ${touchStartTimeout}`);
-        endHold();
-
-        }
-      } else {
-
-        positionActive(e.clientX, e.clientY);
-
-      }
-
       if (userSpin) processInteractionEvent(e);
     }
 
     // Pointer Events on spinnerDiv ONLY
 
-    let innerCarousel = document.querySelector('.carousel-inner')
-    innerCarousel.addEventListener('pointerdown', onPointerDown);
-    innerCarousel.addEventListener('pointerup', onPointerUp);
-    innerCarousel.addEventListener('pointercancel', onPointerCancel);
-    innerCarousel.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerCancel);
+    window.addEventListener('pointermove', onPointerMove);
 
     screen.orientation.addEventListener('change', () => {resizeSpinner(spinnerScale)});
     window.addEventListener('resize', () => {resizeSpinner(spinnerScale)});
-
-    function resizeActive(scale){
-
-      let active = document.querySelector(".active");
-
-      let width = '';
-      let height = '';
-
-      if (window.innerHeight < window.innerWidth){
-        height = `${parseFloat(active.getBoundingClientRect().width) * scale / 100.0}px`;
-        active.style.setProperty('height', height, 'important');
-        active.style.setProperty('width', '');
-      } else {
-        width = `${parseFloat(active.getBoundingClientRect().height) * scale / 100.0}px`;
-        active.style.setProperty('width', width, 'important');
-        active.style.setProperty('height', '');
-      }
-
-     }
 
     function resizeSpinner(scale){
 

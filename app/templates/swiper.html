@@ -19,26 +19,111 @@
 
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
+
         <!-- Slides -->
-        <div class="swiper-slide">Slide 1</div>
-        <div class="swiper-slide">Slide 2</div>
-        <div class="swiper-slide">Slide 3</div>
+        <div class="swiper-slide">
+          <div class="min-vh-100 m-0 p-0 d-flex position-relative">
+            <div id="spinner-container" class="position-absolute top-50 start-50 translate-middle">
+              <img id="spinner" class="fade-in" src="./static/media/WaitingDiscOnlyLarge2.png">
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="min-vh-100 m-0 p-0 d-flex position-relative">
+            <div id="clock" class="position-absolute top-50 start-50 translate-middle">
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="min-vh-100 m-0 p-0 d-flex position-relative">
+            <div id="moon" class="position-absolute top-50 start-50 translate-middle">
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- If we need pagination -->
       <!-- <div class="swiper-pagination"></div> -->
 
       <!-- If we need navigation buttons -->
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
+      <!-- <div class="swiper-button-prev"></div> -->
+      <!-- <div class="swiper-button-next"></div> -->
 
       <!-- If we need scrollbar -->
       <!-- <div class="swiper-scrollbar"></div> -->
+
     </div>
+
+    <!-- GLSL vertex shader for the moon -->
+    <script id="norm-vert-shader" type="x-shader/x-vertex">
+      attribute vec4 tangent;
+      
+      uniform vec2 uvScale;
+      uniform vec3 lightPosition;
+
+      varying vec2 vUv;
+      varying mat3 tbn;
+      varying vec3 vLightVector;
+
+      void main() {
+          vUv = uvScale * uv;
+
+          /** Create tangent-binormal-normal matrix used to transform
+              coordinates from object space to tangent space */
+          vec3 vNormal = normalize(normalMatrix * normal);
+          vec3 vTangent = normalize( normalMatrix * tangent.xyz );
+          vec3 vBinormal = normalize(cross( vNormal, vTangent ) * tangent.w);
+          tbn = mat3(vTangent, vBinormal, vNormal);
+
+          /** Calculate the vertex-to-light vector */
+          vec4 lightVector = viewMatrix * vec4(lightPosition, 1.0);
+          vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
+          vLightVector = normalize(lightVector.xyz - modelViewPosition.xyz);
+
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    </script>
+
+    <!-- GLSL fragment shader for the moon -->
+    <script id="norm-frag-shader" type="x-shader/x-fragment">
+      uniform sampler2D textureMap;
+      uniform sampler2D normalMap;
+      
+      varying vec2 vUv;
+      varying mat3 tbn;
+      varying vec3 vLightVector;
+      
+      void main() {
+          /** Transform texture coordinate of normal map to a range (-1, 1) */
+          vec3 normalCoordinate = texture2D(normalMap, vUv).xyz * 2.0 - 1.0;
+
+
+          /** Transform the normal vector in the RGB channels to tangent space */
+          vec3 normal = normalize(tbn * normalCoordinate.rgb);
+
+          /** Lighting intensity is calculated as dot of normal vector and 
+              the vertex-to-light vector */
+          float intensity = max(0.015, 1.35 * dot(normal, vLightVector));
+          vec4 lighting = vec4(intensity, intensity, intensity, 1.0);
+
+          /** Final color is calculated with the lighting applied */
+          gl_FragColor = texture2D(textureMap, vUv) * lighting;
+      }
+    </script>
 
     <!-- Javascript Files -->
     <script type="text/javascript" src="./static/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="./static/js/swiper-bundle.js"></script>
+    <script type="text/javascript" src="./static/js/swiper.js"></script>
+
+    <script type="text/javascript" src="./static/js/three.min.js"></script>
+    <script src="./static/js/common.js"></script>
+    <script src="./static/js/spinner-swiper.js"></script>
+    <script src="./static/js/clock.js"></script>
+    <script src="./static/js/moon.js"></script>
     
 
   </body>
