@@ -37,6 +37,10 @@
       event.preventDefault();
     });
 
+    const myCarouselElement = document.querySelector('#carouselExample')
+
+    const carousel = new bootstrap.Carousel(myCarouselElement)
+
     function positionActive(x, y){
 
       let active = document.querySelector(".active");
@@ -90,14 +94,23 @@
     function onPointerUp(e) {
       e.preventDefault();
       e.stopPropagation();
-      
-      if (holdFlag) console.log('HOLD CANCELLED');
+
+      if(holdFlag){
+        console.log('HOLD CANCELLED');
+        if(downX - e.clientX > holdRadius){
+          console.log('left');
+          carousel.next();
+        } else if(downX - e.clientX < -holdRadius){
+          console.log('right');
+          carousel.prev();
+        }
+      }
+
       holdFlag = false;
       userSpin = false;
       lastMoveEvent = -1;
 
       endHold();
-      
       startSpin();
     }
 
