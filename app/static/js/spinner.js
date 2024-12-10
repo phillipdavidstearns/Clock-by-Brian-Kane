@@ -11,7 +11,7 @@
     // set global variables
     let angle = 0.0; // degrees
     let rotVel = 0.0; // degrees per second
-    let userInteraction = false;
+    let userSpin = false;
     let rotVel_target = isNaN(parseFloat(params.speed)) ? 1.0 : Math.min(30, Math.max(-30, parseFloat(params.speed)));
     let drag = isNaN(parseFloat(params.drag)) ? 1.0 : Math.min(10.0, Math.max(0.1, parseFloat(params.drag)));
     let spinnerScale = isNaN(parseFloat(params.scale)) ? 100 : Math.min(150, Math.max(params.scale, 1));
@@ -20,65 +20,151 @@
     let offsetX = isNaN(parseFloat(params.offsetX)) ? 0 : Math.min(500, Math.max(-500, parseFloat(params.offsetX)));
     let timer = -1;
     let lastMoveEvent = -1;
+    let holdFlag = false;
+    let touchStartTimeout = -1;
+    let movementX = 0;
+    let movementY = 0;
+    let holdRadius = 50; //pixels
+    let downX = 0;
+    let downY = 0;
 
     // global elements
     const spinnerDiv = document.getElementById("spinner-container");
     const spinner = document.getElementById("spinner");
-    const frame = document.getElementById('frame');
+    const frame = document.getElementById("frame");
+
+    document.addEventListener('contextmenu', (event) => {
+      event.preventDefault();
+    });
+
+    function positionActive(x, y){
+
+      let active = document.querySelector(".active");
+      active.style.left = `${x - window.innerWidth / 2}px`;
+      active.style.top = `${y - window.innerHeight / 2}px`;
+      console.log(`positioning... x: ${active.style.left}, y: ${active.style.top}`);
+
+    }
 
     // Pointer Events on spinnerDiv ONLY
 
+
+    function endHold(){
+      clearTimeout(touchStartTimeout);
+      touchStartTimeout = -1;
+      let active = document.querySelector(".active");
+      active.style.position = '';
+      active.style.left = ``;
+      active.style.top = ``;
+      // resizeSpinner(spinnerScale);
+    }
+
     function onPointerDown(e) {
-      // e.preventDefault();
-      // e.stopPropagation();
-      userInteraction = true;
+      e.preventDefault();
+      e.stopPropagation();
+
+      //store the initial pointer coordinates
+      downX = e.clientX;
+      downY = e.clientY;
+      movementX = 0;
+      movementY = 0;
+
+      //that a timeout that after one second:
+      //1. sets a hold flag
+      //2. stops user spin actions
+      //3. starts default spin action
+      touchStartTimeout = setTimeout(() => {
+        holdFlag = true;
+        userSpin = false;
+        console.log('HOLDING!');
+        positionActive(downX, downY);
+        startSpin();
+      }, 1000);
+
+      userSpin = true;
       lastMoveEvent = parseInt(new Date().getTime());
+
       stopSpin();
     }
 
     function onPointerUp(e) {
-      // e.preventDefault();
-      // e.stopPropagation();
-      userInteraction = false;
+      e.preventDefault();
+      e.stopPropagation();
+      
+      if (holdFlag) console.log('HOLD CANCELLED');
+      holdFlag = false;
+      userSpin = false;
       lastMoveEvent = -1;
+
+      endHold();
+      
       startSpin();
     }
 
     function onPointerCancel(e) {
-      // e.preventDefault();
-      // e.stopPropagation();
-      userInteraction = false;
+      e.preventDefault();
+      e.stopPropagation();
+      let holdFlag = false;
+      userSpin = false;
       lastMoveEvent = -1;
+      endHold();
       startSpin();
     }
 
     function onPointerMove(e) {
-      // e.preventDefault();
-      // e.stopPropagation();
-      if (userInteraction) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      // accumulate movement distance in pixels on x and y axis
+      movementX += e.movementX;
+      movementY += e.movementY;
+
+      // if we've not set the hold flag AND
+      // there's an active touchStartTimeout AND
+      // the accumulated movement exceeds the hold radius value (box)
+      if( ! holdFlag && ( 
+          (movementX + downX) > (downX + holdRadius) ||
+          (movementY + downY) > (downY + holdRadius) ||
+          (movementX + downX) < (downX - holdRadius) ||
+          (movementY + downY) < (downY - holdRadius)
+        )
+      ) {
+        console.log(`TOO MUCH MOVING! cancelling touchStartTimeout: ${touchStartTimeout}`);
+        endHold();
+
+      } else if (holdFlag){
+
+        positionActive(e.clientX, e.clientY);
+
+      }
+
+      if (userSpin) {
         processInteractionEvent(e);
       }
     }
 
     // Pointer Events on spinnerDiv ONLY
 
-    spinnerDiv.addEventListener('pointerdown', onPointerDown);
-    spinnerDiv.addEventListener('pointerup', onPointerUp);
-    spinnerDiv.addEventListener('pointercancel', onPointerCancel);
-    spinnerDiv.addEventListener('pointermove', onPointerMove);
+    let innerCarousel = document.querySelector('.carousel-inner')
+    innerCarousel.addEventListener('pointerdown', onPointerDown);
+    innerCarousel.addEventListener('pointerup', onPointerUp);
+    innerCarousel.addEventListener('pointercancel', onPointerCancel);
+    innerCarousel.addEventListener('pointermove', onPointerMove);
 
-    screen.orientation.addEventListener('change', resizeSpinner);
-    window.addEventListener('resize', resizeSpinner);
+    screen.orientation.addEventListener('change', () => {resizeSpinner(spinnerScale)});
+    window.addEventListener('resize', () => {resizeSpinner(spinnerScale)});
 
-    function resizeSpinner(){
+    function resizeSpinner(scale){
+
+      console.log(`scale: ${scale}`);
 
       let width = '';
       let height = '';
 
       if (window.innerHeight < window.innerWidth){
-        height = `${frame.getBoundingClientRect().width}px`;
+        height = `${parseFloat(frame.getBoundingClientRect().width) * scale / 100.0}px`;
       } else {
-        width = `${frame.getBoundingClientRect().height}px`;
+        width = `${parseFloat(frame.getBoundingClientRect().height) * scale / 100.0}px`;
       }
 
       // set width and height
@@ -134,7 +220,7 @@
     }
 
   // initialize the parent div of the spinner graphic
-  resizeSpinner();
+  resizeSpinner(spinnerScale);
   startSpin();
 
   }, false);
