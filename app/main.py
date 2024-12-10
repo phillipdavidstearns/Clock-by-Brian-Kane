@@ -9,6 +9,11 @@ from decouple import config
 
 def launch_app():
 
+  class MyStaticFileHandler(StaticFileHandler):
+    def set_extra_headers(self, path):
+        # Disable cache
+        self.set_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+
   class DefaultHandler(RequestHandler):
     def prepare(self):
       self.set_status(404)
@@ -32,6 +37,10 @@ def launch_app():
     async def get(self):
       self.render('touchy.html')
 
+  class SwiperHandler(RequestHandler):
+    async def get(self):
+      self.render('swiper.html')
+
   def make_app():
     path = os.path.dirname(os.path.abspath(__file__))
     
@@ -44,7 +53,8 @@ def launch_app():
 
     urls = [
       (r'/', MainHandler),
-      (r'/touchy', TouchyHandler)
+      (r'/touchy', TouchyHandler),
+      (r'/swiper', SwiperHandler)
     ]
 
     return Application(urls, **settings)

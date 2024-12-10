@@ -100,8 +100,8 @@
     function processInteractionEvent(e){
       let now = parseInt(new Date().getTime());
 
-      var centerX = offsetX + parseFloat(frame.getBoundingClientRect().width * 0.5);
-      var centerY = offsetY + parseFloat(frame.getBoundingClientRect().height * 0.5);
+      var centerX = offsetX + parseFloat(frame.getBoundingClientRect().width) * 0.5 + parseFloat(frame.getBoundingClientRect().x);
+      var centerY = offsetY + parseFloat(frame.getBoundingClientRect().height) * 0.5 + parseFloat(frame.getBoundingClientRect().y);
 
       let lastX = e.clientX + e.movementX;
       let lastY = e.clientY + e.movementY;
