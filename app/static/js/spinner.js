@@ -3,9 +3,45 @@
 
   document.addEventListener('DOMContentLoaded', async () => {
 
-    // fetch query parameters
     const params = new Proxy(new URLSearchParams(window.location.search), {
       get: (searchParams, prop) => searchParams.get(prop),
+    });
+
+    const swiper = new Swiper('.swiper', {
+      speed: 400,
+      spaceBetween: 100,
+      allowTouchMove: true,
+      centeredSlides: true,
+      direction: 'horizontal',
+      loop: true,
+      initialSlide: parseInt(params.slide) || 0,
+      focusableElements: 'input, select, option, textarea, button',
+      noSwiping: true,
+      noSwipingClass: 'no-swipe',
+      on: {
+        init: function () {
+          if(parseInt(params.slide) || 0 === 0){
+            window.addEventListener('pointerdown', onPointerDown);
+            window.addEventListener('pointerup', onPointerUp);
+            window.addEventListener('pointercancel', onPointerCancel);
+            window.addEventListener('pointermove', onPointerMove);
+          }
+        },
+      },
+    });
+
+    swiper.on('realIndexChange', (e) => {
+      if(swiper.realIndex === 0){
+        window.addEventListener('pointerdown', onPointerDown);
+        window.addEventListener('pointerup', onPointerUp);
+        window.addEventListener('pointercancel', onPointerCancel);
+        window.addEventListener('pointermove', onPointerMove);
+      } else {
+        window.removeEventListener('pointerdown', onPointerDown);
+        window.removeEventListener('pointerup', onPointerUp);
+        window.removeEventListener('pointercancel', onPointerCancel);
+        window.removeEventListener('pointermove', onPointerMove);       
+      }
     });
 
     // set global variables
@@ -40,7 +76,7 @@
     // Pointer Events on spinnerDiv ONLY
 
     function onPointerDown(e) {
-      // e.preventDefault();
+      e.preventDefault();
       e.stopPropagation();
       userSpin = true;
       lastMoveEvent = parseInt(new Date().getTime());
@@ -71,10 +107,9 @@
 
     // Pointer Events on spinnerDiv ONLY
 
-    frame.addEventListener('pointerdown', onPointerDown);
-    frame.addEventListener('pointerup', onPointerUp);
-    frame.addEventListener('pointercancel', onPointerCancel);
-    frame.addEventListener('pointermove', onPointerMove);
+    // add when slide 0 is active Only
+
+    
 
     screen.orientation.addEventListener('change', () => {resizeSpinner(spinnerScale)});
     window.addEventListener('resize', () => {resizeSpinner(spinnerScale)});
