@@ -1,4 +1,3 @@
-from tornado.websocket import WebSocketHandler
 from tornado.web import Application, RequestHandler, StaticFileHandler
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
@@ -20,25 +19,7 @@ def launch_app():
 
   class MainHandler(RequestHandler):
     async def get(self):
-      self.render(
-        config('INDEX', cast=str, default='index-bootstrap.html')
-      )
-    async def post(self):
-      try:
-        timestamp = float(self.get_query_argument('timestamp'))
-        logging.debug(f"Apply the timestamp value {timestamp} to the system time.")
-        self.set_status(200)
-        return
-      except Exception as e:
-        logging.warning(f"{repr(e)}")
-        self.set_status(400)
-        self.write({'details': repr(e)})
-        return
-
-  class TouchyHandler(RequestHandler):
-    async def get(self):
-      self.render('touchy.html')
-
+      self.render('index.html')
 
   def make_app():
     path = os.path.dirname(os.path.abspath(__file__))
@@ -46,13 +27,11 @@ def launch_app():
     settings = dict(
       template_path = os.path.join(path, 'templates'),
       static_path = os.path.join(path, 'static'),
-      debug = True,
-      websocket_ping_interval = 10
+      debug = True
     )
 
     urls = [
-      (r'/', MainHandler),
-      (r'/touchy', TouchyHandler)
+      (r'/', MainHandler)
     ]
 
     return Application(urls, **settings)

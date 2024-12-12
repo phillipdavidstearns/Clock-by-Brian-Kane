@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Swiper Test</title>
+    <title>Kane Widgets</title>
 
     <link href="./static/css/bootstrap.min.css" rel="stylesheet">
     <link href="./static/css/swiper-bundle.css" rel="stylesheet">
@@ -13,7 +13,7 @@
   </head>
 
   <body id="frame" class="clock-bg m-auto">
-
+    <!-- https://swiperjs.com/ -->
     <!-- Slider main container -->
     <div class="swiper">
 
@@ -41,6 +41,13 @@
           </div>
         </div>
 
+        <div class="swiper-slide">
+          <div class="min-vh-100 m-0 p-0 d-flex position-relative">
+            <div id="set-time" class="position-absolute top-50 start-50 translate-middle">
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- If we need pagination -->
@@ -56,15 +63,18 @@
     </div>
 
     <!-- Javascript Files -->
+    <!-- Vendor -->
     <script type="text/javascript" src="./static/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="./static/js/swiper-bundle.js"></script>
     <script type="text/javascript" src="./static/js/swiper.js"></script>
+    <script type="text/javascript" src="./static/js/suncalc.js"></script>
 
-    <script src="./static/js/suncalc.js"></script>
-    <script src="./static/js/common.js"></script>
-    <script src="./static/js/spinner-swiper.js"></script>
-    <script src="./static/js/clock.js"></script>
-    <script src="./static/js/moon.js"></script>
+    <!-- Custom/Core -->
+    <script type="text/javascript" src="./static/js/common.js"></script>
+    <script type="text/javascript" src="./static/js/spinner.js"></script>
+    <script type="text/javascript" src="./static/js/clock.js"></script>
+    <script type="text/javascript" src="./static/js/moon.js"></script>
+    <script type="text/javascript" src="./static/js/set-time.js"></script>
     
 
   </body>

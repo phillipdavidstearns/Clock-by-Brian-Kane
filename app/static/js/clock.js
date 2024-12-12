@@ -11,18 +11,14 @@
     });
 
     // set global variables
-    
-    let angle = 0.0;
-    let userInteraction = false;
 
-    let padding = isNaN(parseFloat(params.padding)) ? 0.0175 : Math.min(0.1, Math.max(0.0, parseFloat(params.padding)));
-    let heightRatio = isNaN(parseFloat(params.heightRatio)) ? 0.625 : Math.min(0.99, Math.max(0.01, parseFloat(params.heightRatio)));
-    let widthRatio = isNaN(parseFloat(params.widthRatio)) ? 0.3125 : Math.min(1.0, Math.max(0.0, parseFloat(params.widthRatio)));
-    let scale = isNaN(parseFloat(params.scale)) ? 95 : Math.min(150, Math.max(10, parseFloat(params.scale)));
-    let frameRate = isNaN(parseFloat(params.framerate)) ? 30 : Math.min(120, Math.max(1, parseFloat(params.framerate)));
-    let offsetY = isNaN(parseFloat(params.offsetY)) ? 0 : Math.min(500, Math.max(-500, parseFloat(params.offsetY)));
-    let offsetX = isNaN(parseFloat(params.offsetX)) ? 0 : Math.min(500, Math.max(-500, parseFloat(params.offsetX)));
-    let timer = -1;
+    let padding = Math.min(0.1, Math.max(0.0, parseFloat(params.padding))) || 0.0175;
+    let heightRatio = Math.min(0.99, Math.max(0.01, parseFloat(params.heightRatio))) || 0.625;
+    let widthRatio = Math.min(1.0, Math.max(0.0, parseFloat(params.widthRatio))) || 0.3125;
+    let scale = Math.min(150, Math.max(10, parseFloat(params.scale))) || 95;
+    let bladeQty = Math.min(16, Math.max(8, parseInt(params.blades))) || 12;
+
+    let clockInterval = -1;
 
     let hourOffset = 0.0;
     let minuteOffset = 0.0;
@@ -31,10 +27,10 @@
     // global elements
     const clock = document.getElementById("clock");
 
-    const hours = generateBlades(clock, 12);
-    const minutes = generateBlades(clock, 12);
-    const seconds = generateBlades(clock, 12);
-    const millis = generateBlades(clock, 12);
+    const hours = generateBlades(clock, bladeQty);
+    const minutes = generateBlades(clock, bladeQty);
+    const seconds = generateBlades(clock, bladeQty);
+    const millis = generateBlades(clock, bladeQty);
 
     function scaleBlades( blades, radius, heightRatio, widthRatio, paddingRatio){
       let padding = radius * paddingRatio;
@@ -49,13 +45,15 @@
     }
 
     function colorBlades(blades, unit){
-      let now = new Date();
+      let now = newDateFromOffset(
+        parseInt(localStorage.getItem('timeOffset')) || 0
+      );
       let value = null;
       let div = null;
 
       switch(unit){
         case 'hours':
-          value = ((now.getHours() + ((now.getMinutes() + (now.getSeconds() + now.getMilliseconds() * 0.001) / 60) / 60)) % 12) / 12;
+          value = ((now.getHours() + ((now.getMinutes() + (now.getSeconds() + now.getMilliseconds() * 0.001) / 60) / 60)) % bladeQty) / bladeQty;
           break;
         case 'minutes':
           value = (now.getMinutes() + (now.getSeconds() + now.getMilliseconds() * 0.001) / 60) / 60 ;
@@ -142,15 +140,15 @@
     }
 
     function startClock() {
-      if (timer === -1) {
-        timer = setInterval(runClock, 1000 / frameRate);
+      if (clockInterval === -1) {
+        clockInterval = setInterval(runClock, 1000 / bladeQty);
       }
     }
 
     function stopClock() {
-      if (timer !== -1) {
-        clearInterval(timer);
-        timer = -1;
+      if (clockInterval !== -1) {
+        clearInterval(clockInterval);
+        clockInterval = -1;
       }
     }
 

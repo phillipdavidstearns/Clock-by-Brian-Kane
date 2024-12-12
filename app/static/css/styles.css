@@ -2,7 +2,6 @@
   background-color: black;
   width: 100vh;
   height: 100vh;
-/*  touch-action: none;*/
 }
 
 .swiper-slide {
@@ -17,11 +16,11 @@
   width: 100vh;
   height: 100vh;
   overflow: hidden;
-  touch-action: none;
+/*  touch-action: none;*/
 }
 
 .no-select {
-  user-select: none;
+/*  user-select: none;*/
 }
 
 .fade-in {
@@ -40,8 +39,8 @@ html {
   margin: 0;
   height: 100vh;
   overflow: hidden;
-  user-select: none;
-  touch-action: none;
+/*  user-select: none;*/
+/*  touch-action: none;*/
 }
 
 @keyframes fadeIn {

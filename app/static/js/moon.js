@@ -5,9 +5,6 @@
   const frame = document.getElementById('frame');
   const moon = document.createElement('img');
 
-  const phase_offset = 735000; //seconds to match current moon phase.
-  const phase_period = 2551392;
-  const EPOCH = 2440587.5;
   let moonInterval = -1;
 
   function init() {
@@ -28,7 +25,13 @@
   }
 
   function animate() {
-    const phase = Math.round(235 * SunCalc.getMoonIllumination().phase);
+    // https://github.com/mourner/suncalc
+    // moon images count from 0001 through 0236
+    const phase = 1 + Math.round(235 * SunCalc.getMoonIllumination(
+      newDateFromOffset(
+        parseInt(localStorage.getItem('timeOffset')) || 0
+      )
+    ).phase);
     moon.src = `./static/media/moon/moon.${phase.toString().padStart(4,'0')}.jpg`;
   }
 

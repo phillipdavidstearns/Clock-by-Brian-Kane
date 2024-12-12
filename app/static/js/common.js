@@ -21,3 +21,44 @@ function getAngle(centerX, centerY, oldX, oldY, newX, newY){
   // else return the angle converted to degrees
   return isNaN(theta) ? 0 : theta * 180 / Math.PI;
 }
+
+function getTimeDelta(now, then){
+  const timestampNow = now.getTime();
+  const timestampThen = then.getTime();
+  return timestampThen - timestampNow;
+}
+
+function newDateFromOffset(offset){
+  const timestampNow = new Date().getTime();
+  return new Date(timestampNow + offset);
+}
+
+function getDaysInMonth(year, month){
+
+  switch(month){
+
+    case 2: //feb
+      return year % 4 == 0 ? 29 : 28;
+      break;
+
+    case 1: //jan
+    case 3: //mar
+    case 5: //may
+    case 7: //jul
+    case 8: //aug
+    case 10: //oct
+    case 12: //dec
+      return 31;
+      break;
+
+    case 4: //apr
+    case 6: //jun
+    case 9: //sep
+    case 11: //nov
+      return 30;
+
+    default:
+      return null;
+      break;
+  }
+}
