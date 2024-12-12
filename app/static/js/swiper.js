@@ -17,7 +17,7 @@
       initialSlide: parseInt(params.slide) || 0,
       focusableElements: 'input, select, option, textarea, button',
       noSwiping: true,
-      noSwipingClass: 'form-control'
+      noSwipingClass: 'no-swipe'
     });
 
   }, false);
