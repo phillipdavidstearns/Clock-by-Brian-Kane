@@ -76,8 +76,8 @@
     // Pointer Events on spinnerDiv ONLY
 
     function onPointerDown(e) {
-      e.preventDefault();
-      e.stopPropagation();
+      // e.preventDefault();
+      // e.stopPropagation();
       userSpin = true;
       lastMoveEvent = parseInt(new Date().getTime());
       stopSpin();
