@@ -41,41 +41,40 @@
 
     function onPointerDown(e) {
       // e.preventDefault();
-      // e.stopPropagation();
+      e.stopPropagation();
       userSpin = true;
       lastMoveEvent = parseInt(new Date().getTime());
       stopSpin();
     }
 
     function onPointerUp(e) {
-      // e.preventDefault();
-      // e.stopPropagation();
-
+      e.preventDefault();
+      e.stopPropagation();
       userSpin = false;
       lastMoveEvent = -1;
       startSpin();
     }
 
     function onPointerCancel(e) {
-      // e.preventDefault();
-      // e.stopPropagation();
+      e.preventDefault();
+      e.stopPropagation();
       userSpin = false;
       lastMoveEvent = -1;
       startSpin();
     }
 
     function onPointerMove(e) {
-      // e.preventDefault();
-      // e.stopPropagation();
+      e.preventDefault();
+      e.stopPropagation();
       if (userSpin) processInteractionEvent(e);
     }
 
     // Pointer Events on spinnerDiv ONLY
 
-    window.addEventListener('pointerdown', onPointerDown);
-    window.addEventListener('pointerup', onPointerUp);
-    window.addEventListener('pointercancel', onPointerCancel);
-    window.addEventListener('pointermove', onPointerMove);
+    frame.addEventListener('pointerdown', onPointerDown);
+    frame.addEventListener('pointerup', onPointerUp);
+    frame.addEventListener('pointercancel', onPointerCancel);
+    frame.addEventListener('pointermove', onPointerMove);
 
     screen.orientation.addEventListener('change', () => {resizeSpinner(spinnerScale)});
     window.addEventListener('resize', () => {resizeSpinner(spinnerScale)});

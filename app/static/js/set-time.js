@@ -11,10 +11,11 @@
       )
 
       const form = document.createElement('form');
+      form.setAttribute('class','scale-125');
 
       // year
       const yearRow = document.createElement('div');
-        yearRow.setAttribute('class','row g-3 align-items-center');
+        yearRow.setAttribute('class','row g-3 align-items-center mb-1');
         
         const yearLabelCol = document.createElement('div');
           yearLabelCol.setAttribute('class','col-6');
@@ -36,7 +37,7 @@
             yearInput.setAttribute('max', '9999');
             yearInput.setAttribute('step', '1');
             yearInput.defaultValue = date.getFullYear();
-            yearInput.setAttribute('class','form-control form-control-sm bg-dark text-light border-0 no-swipe border-0 no-swipe');
+            yearInput.setAttribute('class','form-control bg-dark text-light border-0 no-swipe border-0 no-swipe');
           yearInputCol.appendChild(yearInput);
         yearRow.appendChild(yearInputCol);
 
@@ -44,7 +45,7 @@
 
       // month
       const monthRow = document.createElement('div');
-        monthRow.setAttribute('class','row g-3 align-items-center');
+        monthRow.setAttribute('class','row g-3 align-items-center mb-1');
         
         const monthLabelCol = document.createElement('div');
           monthLabelCol.setAttribute('class','col-6');
@@ -65,7 +66,7 @@
             monthInput.setAttribute('max', '12');
             monthInput.setAttribute('step', '1');
             monthInput.defaultValue = date.getMonth() + 1;
-            monthInput.setAttribute('class','form-control form-control-sm bg-dark text-light border-0 no-swipe');
+            monthInput.setAttribute('class','form-control bg-dark text-light border-0 no-swipe');
             monthInput.addEventListener('change', (e) => {
               const yearInput = document.getElementById('year');
               const dayInput = document.getElementById('day');
@@ -85,7 +86,7 @@
 
       // day
       const dayRow = document.createElement('div');
-        dayRow.setAttribute('class','row g-3 align-items-center');
+        dayRow.setAttribute('class','row g-3 align-items-center mb-1');
         
         const dayLabelCol = document.createElement('div');
           dayLabelCol.setAttribute('class','col-6');
@@ -106,7 +107,7 @@
             dayInput.setAttribute('max', `${getDaysInMonth(date)}`);
             dayInput.setAttribute('step', '1');
             dayInput.defaultValue = date.getDate();
-            dayInput.setAttribute('class','form-control form-control-sm bg-dark text-light border-0 no-swipe');
+            dayInput.setAttribute('class','form-control bg-dark text-light border-0 no-swipe');
           dayInputCol.appendChild(dayInput);
         dayRow.appendChild(dayInputCol);
 
@@ -114,7 +115,7 @@
 
       // hour
       const hourRow = document.createElement('div');
-        hourRow.setAttribute('class','row g-3 align-items-center');
+        hourRow.setAttribute('class','row g-3 align-items-center mb-1');
         
         const hourLabelCol = document.createElement('div');
           hourLabelCol.setAttribute('class','col-6');
@@ -135,7 +136,7 @@
             hourInput.setAttribute('max', '23');
             hourInput.setAttribute('step', '1');
             hourInput.defaultValue = date.getHours();
-            hourInput.setAttribute('class','form-control form-control-sm bg-dark text-light border-0 no-swipe');
+            hourInput.setAttribute('class','form-control bg-dark text-light border-0 no-swipe');
           hourInputCol.appendChild(hourInput);
         hourRow.appendChild(hourInputCol);
 
@@ -143,7 +144,7 @@
 
       // min
       const minRow = document.createElement('div');
-        minRow.setAttribute('class','row g-3 align-items-center');
+        minRow.setAttribute('class','row g-3 align-items-center mb-1');
         
         const minLabelCol = document.createElement('div');
           minLabelCol.setAttribute('class','col-6');
@@ -164,7 +165,7 @@
             minInput.setAttribute('max', '59');
             minInput.setAttribute('step', '1');
             minInput.defaultValue = date.getMinutes();
-            minInput.setAttribute('class','form-control form-control-sm bg-dark text-light border-0 no-swipe');
+            minInput.setAttribute('class','form-control bg-dark text-light border-0 no-swipe');
           minInputCol.appendChild(minInput);
         minRow.appendChild(minInputCol);
 
@@ -172,7 +173,7 @@
 
       // sec
       const secRow = document.createElement('div');
-        secRow.setAttribute('class','row g-3 align-items-center');
+        secRow.setAttribute('class','row g-3 align-items-center mb-1');
         
         const secLabelCol = document.createElement('div');
           secLabelCol.setAttribute('class','col-6');
@@ -193,7 +194,7 @@
             secInput.setAttribute('max', '59');
             secInput.setAttribute('step', '1');
             secInput.defaultValue = date.getSeconds();
-            secInput.setAttribute('class','form-control form-control-sm bg-dark text-light border-0 no-swipe');
+            secInput.setAttribute('class','form-control bg-dark text-light border-0 no-swipe');
           secInputCol.appendChild(secInput);
         secRow.appendChild(secInputCol);
 
@@ -204,7 +205,7 @@
         const updateCol = document.createElement('div');
         updateCol.setAttribute('class','col-6');
           const updateButton = document.createElement('button');
-            updateButton.setAttribute('class','btn btn-sm bg-dark text-light rounded-pill no-swipe w-100');
+            updateButton.setAttribute('class','btn btn-lg bg-dark text-light rounded-pill no-swipe w-100');
             updateButton.textContent = 'Set Time';
             updateButton.addEventListener('click', (e) => {
               e.preventDefault();
