@@ -11,11 +11,12 @@
 
     //initialize moon image
     moon.setAttribute('id','moon-image');
-    moon.setAttribute('class','img-fluid');
+    moon.setAttribute('class','min-vh-100');
 
     //append moon image to its containing div
     container.appendChild(moon);
 
+    resizeMoon(100);
     animate();
 
     if (moonInterval === -1) {
@@ -23,6 +24,25 @@
     }
 
   }
+
+  function resizeMoon(scale){
+
+      let width = '';
+      let height = '';
+
+      if (window.innerHeight < window.innerWidth){
+        height = `${scale}vh`;
+        // height = `${parseFloat(frame.getBoundingClientRect().width) * scale / 100.0}px`;
+      } else {
+        width = `${scale}vw`;
+        // width = `${parseFloat(frame.getBoundingClientRect().height) * scale / 100.0}px`;
+      }
+
+      // set width and height
+      moon.style.setProperty('height', height, 'important');
+      moon.style.setProperty('width', width, 'important');
+
+    }
 
   function animate() {
     // https://github.com/mourner/suncalc
@@ -41,5 +61,7 @@
 
   /** Window load event kicks off execution */
   window.addEventListener('load', onWindowLoaded, false);
+  screen.orientation.addEventListener('change', () => {resizeMoon(100)});
+  window.addEventListener('resize', () => {resizeMoon(100)});
 
 })();

@@ -1,6 +1,5 @@
 .swiper {
   background-color: black;
-  width: 100vh;
   height: 100vh;
 }
 
@@ -10,17 +9,13 @@
 
 /* clock specific */
 
-.clock-bg {
+body {
   padding: 0;
   background-color: black;
-  width: 100vh;
   height: 100vh;
   overflow: hidden;
-  touch-action: none;
-}
-
-.no-select {
   user-select: none;
+  touch-action: none;
 }
 
 .fade-in {

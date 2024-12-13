@@ -18,6 +18,9 @@
       focusableElements: 'input, select, option, textarea, button',
       noSwiping: true,
       noSwipingClass: 'no-swipe',
+      fadeEffect: {
+        crossFade: true
+      },
       on: {
         init: function () {
           if(parseInt(params.slide) || 0 === 0){
@@ -114,9 +117,11 @@
       let height = '';
 
       if (window.innerHeight < window.innerWidth){
-        height = `${parseFloat(frame.getBoundingClientRect().width) * scale / 100.0}px`;
+        height = `${scale}vh`;
+        // height = `${parseFloat(frame.getBoundingClientRect().width) * scale / 100.0}px`;
       } else {
-        width = `${parseFloat(frame.getBoundingClientRect().height) * scale / 100.0}px`;
+        width = `${scale}vw`;
+        // width = `${parseFloat(frame.getBoundingClientRect().height) * scale / 100.0}px`;
       }
 
       // set width and height

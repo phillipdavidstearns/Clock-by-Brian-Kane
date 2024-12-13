@@ -8,11 +8,12 @@
 
     <link href="./static/css/bootstrap.min.css" rel="stylesheet">
     <link href="./static/css/swiper-bundle.css" rel="stylesheet">
-    <link rel="stylesheet" href="./static/css/styles.css">
+    <link href="./static/css/mobiscroll.javascript.min.css" rel="stylesheet">
+    <link href="./static/css/styles.css" rel="stylesheet">
 
   </head>
 
-  <body id="frame" class="clock-bg m-auto">
+  <body id="frame" class="m-auto">
     <!-- https://swiperjs.com/ -->
     <!-- Slider main container -->
     <div class="swiper">
@@ -37,14 +38,18 @@
         </div>
 
         <div class="swiper-slide">
-          <div id="moon" class="min-vh-100 m-0 p-0 d-flex position-relative">
+          <div class="min-vh-100 m-0 p-0 d-flex position-relative">
+            <div id="moon" class="position-absolute top-50 start-50 translate-middle">
+            </div>
           </div>
         </div>
 
         <div class="swiper-slide">
-          <div class="min-vh-100 m-0 p-0 d-flex position-relative">
-            <div id="set-time" class="position-absolute top-50 start-50 translate-middle">
-            </div>
+            <div id="spinner-container" class="w-100 position-absolute top-50 start-50 translate-middle">
+                <div id="datetimebk"></div>
+              </div>
+            <div id="spinner-container" class="position-absolute bottom-0 start-50 translate-middle-x">
+              <img id="bk-signature" src="./static/media/bk-signature.png">
           </div>
         </div>
 
@@ -67,13 +72,15 @@
     <script type="text/javascript" src="./static/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="./static/js/swiper-bundle.js"></script>
     <script type="text/javascript" src="./static/js/suncalc.js"></script>
+    <script type="text/javascript" src="./static/js/mobiscroll.javascript.min.js"></script>
+
 
     <!-- Custom/Core -->
     <script type="text/javascript" src="./static/js/common.js"></script>
     <script type="text/javascript" src="./static/js/spinner.js"></script>
     <script type="text/javascript" src="./static/js/clock.js"></script>
     <script type="text/javascript" src="./static/js/moon.js"></script>
-    <script type="text/javascript" src="./static/js/set-time.js"></script>
+    <script type="text/javascript" src="./static/js/datetime.js"></script>
     
 
   </body>
