@@ -1,10 +1,11 @@
 .swiper {
   background-color: black;
   height: 100vh;
+  width: 100vw;
 }
 
 .swiper-slide {
-  overflow: hidden;
+/*  overflow: hidden;*/
 }
 
 /* clock specific */
@@ -13,6 +14,7 @@ body {
   padding: 0;
   background-color: black;
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
   user-select: none;
   touch-action: none;
@@ -33,6 +35,7 @@ html {
   padding: 0;
   margin: 0;
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
   user-select: none;
   touch-action: none;
@@ -41,4 +44,15 @@ html {
 @keyframes fadeIn {
   from { opacity: 0.0; }
   to { opacity: 1.0; }
+}
+
+#signaturebk {
+  z-index:999;
+}
+
+#datetimebk {
+  padding: 0;
+  margin: 0;
+  z-index:0;
+  outline: none !important;
 }

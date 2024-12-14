@@ -14,13 +14,10 @@
       centeredSlides: true,
       direction: 'horizontal',
       loop: true,
-      initialSlide: parseInt(params.slide) || 0,
+      initialSlide: parseInt(params.slide) || 3,
       focusableElements: 'input, select, option, textarea, button',
       noSwiping: true,
       noSwipingClass: 'no-swipe',
-      fadeEffect: {
-        crossFade: true
-      },
       on: {
         init: function () {
           if(parseInt(params.slide) || 0 === 0){
@@ -51,21 +48,14 @@
     let angle = 0.0; // degrees
     let rotVel = 0.0; // degrees per second
     let userSpin = false;
-    let rotVel_target = isNaN(parseFloat(params.speed)) ? 1.0 : Math.min(30, Math.max(-30, parseFloat(params.speed)));
-    let drag = isNaN(parseFloat(params.drag)) ? 1.0 : Math.min(10.0, Math.max(0.1, parseFloat(params.drag)));
-    let spinnerScale = isNaN(parseFloat(params.scale)) ? 100 : Math.min(150, Math.max(params.scale, 1));
-    let frameRate = isNaN(parseFloat(params.framerate)) ? 60 : Math.min(120, Math.max(1, parseFloat(params.framerate)));
-    let offsetY = isNaN(parseFloat(params.offsetY)) ? 0 : Math.min(500, Math.max(-500, parseFloat(params.offsetY)));
-    let offsetX = isNaN(parseFloat(params.offsetX)) ? 0 : Math.min(500, Math.max(-500, parseFloat(params.offsetX)));
+    let rotVel_target = Math.min(30, Math.max(-30, parseFloat(params.speed))) || 4.0 ;
+    let drag =  Math.min(10.0, Math.max(0.1, parseFloat(params.drag))) || 0.5 ;
+    let spinnerScale = Math.min(150, Math.max(parseFloat(params.scale), 1)) || 103;
+    let frameRate = Math.min(120, Math.max(1, parseFloat(params.framerate))) || 60;
+    let offsetY = Math.min(500, Math.max(-500, parseFloat(params.offsetY))) || 0;
+    let offsetX = Math.min(500, Math.max(-500, parseFloat(params.offsetX))) || 0;
     let timer = -1;
     let lastMoveEvent = -1;
-    let holdFlag = false;
-    let touchStartTimeout = -1;
-    let movementX = 0;
-    let movementY = 0;
-    let holdRadius = 50; //pixels
-    let downX = 0;
-    let downY = 0;
 
     // global elements
     const spinnerDiv = document.getElementById("spinner-container");
@@ -117,11 +107,9 @@
       let height = '';
 
       if (window.innerHeight < window.innerWidth){
-        height = `${scale}vh`;
-        // height = `${parseFloat(frame.getBoundingClientRect().width) * scale / 100.0}px`;
+        height = `${window.innerHeight * scale * 0.01}px`;
       } else {
-        width = `${scale}vw`;
-        // width = `${parseFloat(frame.getBoundingClientRect().height) * scale / 100.0}px`;
+        width = `${window.innerWidth * scale * 0.01}px`;
       }
 
       // set width and height

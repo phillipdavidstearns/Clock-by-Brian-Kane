@@ -1,0 +1,41 @@
+
+
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0.0; }
+  to { opacity: 1.0; }
+}
+
+.swiper {
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+}
+
+.swiper-slide {
+/*  overflow: hidden;*/
+}
+
+#signaturebk {
+  z-index:999;
+}
+
+#datetimebk {
+  padding: 0;
+  margin: 0;
+  z-index:0;
+  outline: none !important;
+}
