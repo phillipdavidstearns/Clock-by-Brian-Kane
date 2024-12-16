@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- if you lived here, you'd be home now -->
+    <!-- https://www.youtube.com/watch?v=72ZAMCzjxrk&t=323s  -->
+
+    <!-- Coded by Phillip Stearns: https://phillipstearns.com -->
+    <!-- An artist and textile designer working with electronics and electronic media, based in Denver, CO, USA -->
+
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="And I was in a headspin, and I kept on going, In my dream, I kept on going, kept on spinning, I wasn't leaning on nothing, I kept on spinning, I was, like, I was spinning, I was just like, It was like something was spinning me.">
+    <meta name="author" content="Brian Kane">
+
+    <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
+    <meta property="og:site_name" content="Clock by Brian Kane" /> <!-- website name -->
+    <meta property="og:site" content="https://briankane.net/clock" /> <!-- website link -->
+    <meta property="og:title" content="Clock by Brian Kane"/> <!-- title shown in the actual shared post -->
+    <meta property="og:description" content="And I was in a headspin, and I kept on going, In my dream, I kept on going, kept on spinning, I wasn't leaning on nothing, I kept on spinning, I was, like, I was spinning, I was just like, It was like something was spinning me." /> <!-- description shown in the actual shared post -->
+
+    <!-- og image must be a full url  -->
+    <meta property="og:image" content="https://briankane.net/spin/media/Spin.png" /> <!-- image link, make sure it's jpg -->
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
+    <meta name="twitter:image" content="https://briankane.net/spin/media/Spin.png">
+    <meta property="og:url" content="https://briankane.net/clock/" /> <!-- where do you want your post to link to -->
+    <meta property="og:type" content="article" />
+
+    <!-- Website Title -->       
+    <title>Clock by Brian Kane</title>
+
+    
+    <!-- CSS Stylesheets -->
+    <link href="./static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./static/css/swiper-bundle.css" rel="stylesheet">
+    <link href="./static/css/mobiscroll.javascript.min.css" rel="stylesheet">
+    <link href="./static/css/styles.css" rel="stylesheet">
+
+    <script>
+    document.onreadystatechange = function () {
+      var state = document.readyState
+      if (state === 'interactive') {
+           
+      } else if (state === 'complete') {
+        setTimeout(function(){
+          document.getElementById('loadingdiv').style.visibility="hidden";
+        },500);
+      }
+    }
+    </script>
+
+    <style>
+      #loadingdiv {
+        width: 100vw;
+        height: calc(100vh - calc(100vh - 100%)) !important; 
+        top: 0px;
+        left: 0px;
+        position: fixed; 
+        z-index: 99;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color:black;
+      }
+
+      #loading-image {
+        width:200px;
+        height:200px;
+        z-index: 100
+      } 
+    </style>
+
+  </head>
+
+  <body id="frame" class="m-auto">
+
+    <div id="loadingdiv">
+      <img id="loading-image" src="./static/media/loading.gif" alt="Loading..." />
+    </div> 
+
+    <!-- https://swiperjs.com/ -->
+    <!-- Slider main container -->
+    <div class="swiper">
+
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+
+        <!-- Slides -->
+        <div class="swiper-slide">
+          <div class="min-vh-100 m-0 p-0 d-flex position-relative">
+            <div id="spinner-container" class="position-absolute top-50 start-50 translate-middle">
+              <img id="spinner" class="fade-in" src="./static/media/WaitingDiscOnlyLarge2.png">
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="min-vh-100 m-0 p-0 d-flex position-relative">
+            <div id="clock" class="position-absolute top-50 start-50 translate-middle">
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="min-vh-100 m-0 p-0 d-flex position-relative">
+            <div id="moon" class="position-absolute top-50 start-50 translate-middle">
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div id="datetimebk"></div>
+          <div class="position-absolute bottom-0 start-50 translate-middle-x">
+            <img id="bk-signature" src="./static/media/bk-signature.png">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- If we need pagination -->
+      <!-- <div class="swiper-pagination"></div> -->
+
+      <!-- If we need navigation buttons -->
+      <!-- <div class="swiper-button-prev"></div> -->
+      <!-- <div class="swiper-button-next"></div> -->
+
+      <!-- If we need scrollbar -->
+      <!-- <div class="swiper-scrollbar"></div> -->
+
+    </div>
+
+    <!-- Javascript Files -->
+    <!-- Vendor -->
+    <script type="text/javascript" src="./static/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./static/js/swiper-bundle.js"></script>
+    <script type="text/javascript" src="./static/js/suncalc.js"></script>
+    <script type="text/javascript" src="./static/js/mobiscroll.javascript.min.js"></script>
+
+
+    <!-- Custom/Core -->
+    <script type="text/javascript" src="./static/js/common.js"></script>
+    <script type="text/javascript" src="./static/js/spinner.js"></script>
+    <script type="text/javascript" src="./static/js/clock.js"></script>
+    <script type="text/javascript" src="./static/js/moon.js"></script>
+    <script type="text/javascript" src="./static/js/datetime.js"></script>
+    
+
+  </body>
+
+</html>

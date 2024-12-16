@@ -1,0 +1,109 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  height: calc(100vh - calc(100vh - 100%));
+  width: 100vw;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0.0; }
+  to { opacity: 1.0; }
+}
+
+.swiper {
+  background-color: black;
+  height: calc(100vh - calc(100vh - 100%));
+  width: 100vw;
+}
+.swiper-wrapper {
+  height: calc(100vh - calc(100vh - 100%)) !important;
+}
+.swiper-slide {
+  height: calc(100vh - calc(100vh - 100%)) !important;
+/*  overflow: hidden;*/
+}
+
+.min-vh-100 {
+  min-height: calc(100vh - calc(100vh - 100%)) !important;
+}
+
+#datetimebk {
+  padding: 0;
+  margin: 0;
+  z-index:0;
+  outline: none !important;
+  background: black !important;
+  position: relative;
+  top: -26px;
+  border: 0;
+}
+
+img#bk-signature {
+  padding-bottom: 2rem;
+}
+.mbsc-ios-dark.mbsc-scroller, .mbsc-ios-dark.mbsc-scroller-bottom, .mbsc-ios-dark.mbsc-scroller-top {
+  background: black !important;
+}
+
+.mbsc-ios-dark.mbsc-scroller-wheel-line {
+  background: hsla(0, 0%, 100%, 0.2);
+}
+
+.mbsc-ios-dark.mbsc-scroller-pointer.mbsc-scroller, .mbsc-ios-dark.mbsc-scroller-pointer.mbsc-scroller-inline, .mbsc-ios-dark.mbsc-scroller-wheel-cont-bottom.mbsc-scroller-wheel-cont-3d, .mbsc-ios-dark.mbsc-scroller-wheel-cont-inline.mbsc-scroller-wheel-cont-3d, .mbsc-ios-dark.mbsc-scroller-wheel-cont-top.mbsc-scroller-wheel-cont-3d {
+  background: black;
+}
+
+.mbsc-ios-dark.mbsc-scroller-wheel-overlay, .mbsc-ios-dark.mbsc-scroller-wheel-overlay-bottom, .mbsc-ios-dark.mbsc-scroller-wheel-overlay-top {
+  background: linear-gradient(#0000, rgba(255, 255, 255, 0.1) 52%, rgba(255, 255, 255, 0.1) 0, #0000);
+  filter: blur(4px);
+}
+
+.mbsc-datepicker-tab-wrapper {
+  scale: 1.8;
+}
+
+.mbsc-ios.mbsc-scroller-wheel-line {
+  display: block;
+  z-index: 1;
+  border-radius: .5em;
+  margin: 0 .775em;
+}
+
+.mbsc-ios.mbsc-scroller-wheel-item.mbsc-active,.mbsc-ios.mbsc-scroller-wheel-item.mbsc-focus,.mbsc-ios.mbsc-scroller-wheel-item.mbsc-hover{
+  background:rgba(0,122,255,.0);
+}
+
+@media (max-width: 1079.98px) {
+  .mbsc-datepicker-tab-wrapper {
+    scale: 1.0;
+    margin-top: auto;
+    margin-bottom: auto;
+    max-height: 50vh;
+  }
+
+  img#moon-image {
+    min-height: 100vw !important;
+  }
+}
+
+@media (max-width: 500px) {
+  img#bk-signature {
+    padding-bottom: 1rem;
+  }
+}
+
+
+@media (max-height: 668px) {
+  .mbsc-datepicker-tab-wrapper {
+    max-height: 64vh;
+  }
+}
+
+
