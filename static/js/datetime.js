@@ -1,3 +1,5 @@
+let picker = undefined;
+
 (() => {
   'use strict';
 
@@ -7,7 +9,9 @@
       parseInt(localStorage.getItem('timeOffset')) || 0
     )
 
-    var picker = mobiscroll.datepicker('#datetimebk', {
+    let clockInterval = -1;
+
+    picker = mobiscroll.datepicker('#datetimebk', {
       locale: mobiscroll.localeEn,
       theme: 'ios',
       themeVariant: 'dark',
@@ -16,25 +20,17 @@
       touchUi: true,
       display: 'inline',
       onChange: function (event, inst){
+        console.log('change');
         let timeOffset = event.value.getTime() - new Date().getTime();
         localStorage.setItem('timeOffset', timeOffset);
       }
     });
 
-    swiper.on('realIndexChange', (e) => {
-      picker.setOptions({
-        defaultSelection: newDateFromOffset(
-          parseInt(localStorage.getItem('timeOffset')) || 0
-        )
-      });
-    });
-
-    const signature = document.getElementById('bk-signature');
-    const pickerContainer = document.getElementById('datetimebk');
-    resize();
-
-    screen.orientation.addEventListener('change', resize);
-    window.addEventListener('resize', resize);
+    function updatePicker() {
+      picker.setTempVal(newDateFromOffset(
+        parseInt(localStorage.getItem('timeOffset')) || 0
+      ));
+    }
 
     function resize(){
 
@@ -54,6 +50,13 @@
       pickerContainer.style.setProperty('height', `${window.innerHeight * 1.05}px`, 'important');
 
     }
+
+    const signature = document.getElementById('bk-signature');
+    const pickerContainer = document.getElementById('datetimebk');
+    screen.orientation.addEventListener('change', resize);
+    window.addEventListener('resize', resize);
+    clockInterval = setInterval(updatePicker, 1000);
+    resize();
 
   }, false);
 })();
