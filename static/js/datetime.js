@@ -20,7 +20,6 @@ let picker = undefined;
       touchUi: true,
       display: 'inline',
       onChange: function (event, inst){
-        console.log('change');
         let timeOffset = event.value.getTime() - new Date().getTime();
         localStorage.setItem('timeOffset', timeOffset);
       }
