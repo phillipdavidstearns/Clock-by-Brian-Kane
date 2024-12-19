@@ -10,6 +10,9 @@ let swiper = undefined;
       get: (searchParams, prop) => searchParams.get(prop),
     });
 
+    const initialSlide = parseInt(params.slide) || 3;
+    const signature = document.getElementById('bk-signature');
+
     // since the interaction between the swiper and the spinner are linked, the
     // swiper object is included here...
     swiper = new Swiper('.swiper', {
@@ -19,36 +22,64 @@ let swiper = undefined;
       centeredSlides: true,
       direction: 'horizontal',
       loop: true,
-      initialSlide: parseInt(params.slide) || 3,
+      initialSlide: initialSlide,
       focusableElements: 'input, select, option, textarea, button',
       noSwiping: true,
       noSwipingClass: 'no-swipe',
       on: {
-        init: function () {
-          if(parseInt(params.slide) || 0 === 0){
-            window.addEventListener('pointerdown', onPointerDown);
-            window.addEventListener('pointerup', onPointerUp);
-            window.addEventListener('pointercancel', onPointerCancel);
-            window.addEventListener('pointermove', onPointerMove);
-          }
+        init: function(){
+          if (initialSlide === 0) enableInteraction();
+          if (initialSlide === 3) signature.classList.add('signature-fade-out');
         },
       },
     });
 
-    //enables pointer event callbacks for interaction when on spinner slide
-    swiper.on('realIndexChange', (e) => {
-      if(swiper.realIndex === 0){
-        window.addEventListener('pointerdown', onPointerDown);
-        window.addEventListener('pointerup', onPointerUp);
-        window.addEventListener('pointercancel', onPointerCancel);
-        window.addEventListener('pointermove', onPointerMove);
-      } else {
-        window.removeEventListener('pointerdown', onPointerDown);
-        window.removeEventListener('pointerup', onPointerUp);
-        window.removeEventListener('pointercancel', onPointerCancel);
-        window.removeEventListener('pointermove', onPointerMove);       
+    signature.addEventListener('animationend', (e) => {
+      if (e.animationName === 'fadeOut'){
+        // when fadeOut is complete, hold it transparent and remove the class
+        signature.classList.remove('signature-fade-out');
+        signature.style.opacity = 0.0;
+      } else if(e.animationName === 'fadeIn'){
+        // when fadeIn is complete, hold it visible and remove the class
+        signature.classList.remove('signature-fade-in');
+        signature.style.opacity = 1.0;
       }
     });
+
+    swiper.on('realIndexChange', (e) => {
+
+      // date time picker pane == 3
+      if(swiper.realIndex != 3){
+        // fade the signature in when swiping away
+        signature.classList.add('signature-fade-in');
+      } else {
+        // fade the signature out
+        signature.classList.add('signature-fade-out');
+      }
+
+      // spinner pane == 0
+      if(swiper.realIndex === 0){
+        enableInteraction();
+      } else {
+        disableInteraction();
+      }
+    });
+
+    //enables pointer event callbacks for interaction when on spinner slide
+    function enableInteraction() {
+      window.addEventListener('pointerdown', onPointerDown);
+      window.addEventListener('pointerup', onPointerUp);
+      window.addEventListener('pointercancel', onPointerCancel);
+      window.addEventListener('pointermove', onPointerMove);
+    }
+
+    //disables pointer event callbacks for interaction when on spinner slide
+    function disableInteraction() {
+      window.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('pointercancel', onPointerCancel);
+      window.removeEventListener('pointermove', onPointerMove);
+    }
 
     // set global variables
     let angle = 0.0; // degrees
